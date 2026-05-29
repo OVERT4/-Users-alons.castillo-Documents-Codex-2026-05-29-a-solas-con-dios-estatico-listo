@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A Solas con Dios — Brújula Bíblica: un espacio privado y sin juicios para acercarte a Dios con lo que hay en tu corazón."
+    />
+    <title>A Solas con Dios — Brújula Bíblica</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="app-header">
+        <button class="brand" type="button" data-view-target="inicio" aria-label="Ir al inicio">
+          <span class="brand-mark">AD</span>
+          <span>
+            <strong>A Solas con Dios</strong>
+            <small>Brújula Bíblica</small>
+          </span>
+        </button>
+
+        <nav class="main-nav" aria-label="Navegación principal">
+          <button class="nav-tab is-active" type="button" data-view-target="inicio">Inicio</button>
+          <button class="nav-tab" type="button" data-view-target="escribir">Escribir</button>
+          <button class="nav-tab" type="button" data-view-target="diario">Mi Diario</button>
+          <button class="nav-tab" type="button" data-view-target="versiculos">Mis Versículos</button>
+        </nav>
+
+        <div class="header-actions">
+          <button class="utility-button" id="themeToggle" type="button">Modo oscuro</button>
+          <button class="utility-button" id="musicToggle" type="button">Música suave</button>
+        </div>
+      </header>
+
+      <main>
+        <section class="app-view is-active" id="inicioView" data-view="inicio">
+          <div class="home-hero">
+            <div class="stage-media" aria-hidden="true"></div>
+            <div class="stage-overlay" aria-hidden="true"></div>
+
+            <div class="home-grid">
+              <section class="home-copy">
+                <p class="eyebrow">Espacio privado de oración</p>
+                <h1>A Solas con Dios</h1>
+                <p class="home-subtitle">
+                  Brújula Bíblica te ayuda a acercarte a Dios en un espacio privado y sin juicios, llevando lo que sientes hacia la Palabra, la oración y la reflexión.
+                </p>
+
+                <div class="steps-grid" aria-label="Cómo funciona">
+                  <article class="soft-card">
+                    <strong>Escribe</strong>
+                    <p>Pon en palabras lo que hay en tu corazón.</p>
+                  </article>
+                  <article class="soft-card">
+                    <strong>Recibe</strong>
+                    <p>Encuentra versículos, oración y dirección bíblica.</p>
+                  </article>
+                  <article class="soft-card">
+                    <strong>Reflexiona</strong>
+                    <p>Vuelve a Dios con gratitud, preguntas y pasos concretos.</p>
+                  </article>
+                </div>
+
+                <p class="privacy-note">
+                  Todo lo que escribes es 100% privado. Vive solo en este dispositivo, nunca se guarda en ningún servidor y nadie más lo verá.
+                </p>
+
+                <button class="primary-cta" id="startButton" type="button">Comenzar</button>
+              </section>
+
+              <aside class="home-widgets" aria-label="Acompañamiento diario">
+                <article class="widget-card">
+                  <p class="eyebrow">Versículo del día</p>
+                  <strong id="dailyReference">Cargando...</strong>
+                  <p class="daily-text" id="dailyText">Buscando un versículo para hoy.</p>
+                  <span id="dailyTranslation">Reina-Valera 1909</span>
+                </article>
+
+                <article class="widget-card">
+                  <p class="eyebrow">Hábito espiritual</p>
+                  <div class="habit-row">
+                    <strong id="habitCount">0</strong>
+                    <p>días consecutivos visitando y escribiendo</p>
+                  </div>
+                </article>
+
+                <article class="widget-card">
+                  <p class="eyebrow">Recordatorio diario</p>
+                  <div class="reminder-row">
+                    <input id="reminderTime" type="time" value="08:00" />
+                    <button class="primary-small" id="reminderToggle" type="button">Activar</button>
+                  </div>
+                  <p class="muted-copy" id="reminderStatus">
+                    Guarda una hora en este dispositivo y recibe una invitación diaria con un versículo.
+                  </p>
+                </article>
+              </aside>
+            </div>
+          </div>
+        </section>
+
+        <section class="app-view" id="escribirView" data-view="escribir">
+          <section class="search-stage" id="writeArea">
+            <div class="stage-media" aria-hidden="true"></div>
+            <div class="stage-overlay" aria-hidden="true"></div>
+
+            <div class="search-panel">
+              <p class="eyebrow">Área de escritura principal</p>
+              <h2>¿Qué hay en tu corazón hoy?</h2>
+              <p class="small-label">Escribe lo que sientes</p>
+              <p class="form-subtext">
+                Puedes escribir lo que sientes, lo que te preocupa, lo que agradeces o lo que no entiendes. Nadie más que tú lo verá.
+              </p>
+
+              <form id="searchForm" class="search-box">
+                <label class="search-label" for="feelingInput">Escribe lo que sientes</label>
+                <svg aria-hidden="true" viewBox="0 0 24 24">
+                  <path
+                    d="M10.8 18.2a7.4 7.4 0 1 1 5.23-12.63 7.4 7.4 0 0 1-5.23 12.63Zm0-2a5.4 5.4 0 1 0 0-10.8 5.4 5.4 0 0 0 0 10.8Zm5.9.38 4.1 4.1-1.42 1.42-4.1-4.1 1.42-1.42Z"
+                    fill="currentColor"
+                  />
+                </svg>
+                <textarea id="feelingInput" rows="3" placeholder="¿Qué hay en tu corazón hoy?"></textarea>
+                <button type="submit">Llevar esto a Dios</button>
+              </form>
+
+              <div class="quick-topics" aria-label="Temas rápidos">
+                <button type="button" data-query="ansiedad y preocupación">Ansiedad</button>
+                <button type="button" data-query="tristeza y dolor">Tristeza</button>
+                <button type="button" data-query="miedo e inseguridad">Miedo</button>
+                <button type="button" data-query="culpa y pecado">Culpa</button>
+                <button type="button" data-query="soledad y abandono">Soledad</button>
+                <button type="button" data-query="cansancio y carga">Cansancio</button>
+                <button type="button" data-query="necesito dirección">Dirección</button>
+                <button type="button" data-query="enojo y frustración">Enojo</button>
+              </div>
+            </div>
+          </section>
+
+          <section class="results-shell" id="resultsArea" aria-live="polite">
+            <div class="results-heading">
+              <div>
+                <p class="eyebrow">Resultado</p>
+                <h2 id="resultTitle">Ansiedad y preocupación</h2>
+              </div>
+              <p id="resultSummary">
+                La Biblia no trata tu inquietud como algo pequeño; te invita a convertirla en oración y a descansar en el cuidado de Dios.
+              </p>
+            </div>
+
+            <div class="result-toolbar">
+              <div class="matched-topic" id="matchedTopic">
+                <span>Tema sugerido</span>
+                <strong>Ansiedad y preocupación</strong>
+              </div>
+              <div class="result-history" aria-label="Opciones anteriores">
+                <button type="button" id="previousResult">Anterior</button>
+                <span id="historyStatus">Opción 1 de 1</span>
+                <button type="button" id="nextResult">Siguiente</button>
+              </div>
+            </div>
+
+            <p class="copy-status" id="copyStatus" role="status" aria-live="polite"></p>
+
+            <div class="verse-grid" id="verseGrid"></div>
+
+            <div class="devotional-section">
+              <article class="prayer-panel">
+                <p class="eyebrow">Oración sugerida</p>
+                <p id="prayerText"></p>
+              </article>
+
+              <article class="gratitude-panel">
+                <p class="eyebrow">Gratitud para hoy</p>
+                <h3>3 cosas por las que agradecer</h3>
+                <ol id="gratitudeList"></ol>
+              </article>
+            </div>
+
+            <section class="biblical-examples">
+              <div class="examples-heading">
+                <p class="eyebrow">Ejemplos bíblicos</p>
+                <h3>Personas que también pasaron por algo parecido</h3>
+              </div>
+              <div class="example-grid" id="exampleGrid"></div>
+            </section>
+
+            <section class="reflection-section">
+              <div class="reflection-heading">
+                <p class="eyebrow">Para meditar</p>
+                <h3>Preguntas y aprendizajes para llevarlo delante de Dios</h3>
+              </div>
+              <div class="reflection-grid">
+                <article class="reflection-panel">
+                  <h4>Preguntas de reflexión</h4>
+                  <ul id="reflectionQuestions"></ul>
+                </article>
+                <article class="formation-panel">
+                  <h4>Lo que Dios puede estar formando</h4>
+                  <ul id="formationLessons"></ul>
+                </article>
+              </div>
+            </section>
+          </section>
+        </section>
+
+        <section class="app-view panel-view" id="diarioView" data-view="diario">
+          <div class="section-shell">
+            <p class="eyebrow">Diario personal</p>
+            <h2>Mi Diario</h2>
+            <p class="privacy-note compact">
+              Tu diario vive solo en este dispositivo. Nunca se sube a ningún servidor.
+            </p>
+            <div class="entry-list" id="journalList"></div>
+          </div>
+        </section>
+
+        <section class="app-view panel-view" id="versiculosView" data-view="versiculos">
+          <div class="section-shell">
+            <p class="eyebrow">Versículos guardados</p>
+            <h2>Mis Versículos</h2>
+            <p class="muted-copy">Los versículos que marques se guardan únicamente en este dispositivo.</p>
+            <p class="copy-status" id="savedCopyStatus" role="status" aria-live="polite"></p>
+            <div class="saved-grid" id="savedVersesList"></div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
