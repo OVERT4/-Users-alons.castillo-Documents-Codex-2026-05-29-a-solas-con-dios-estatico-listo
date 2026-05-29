@@ -1,0 +1,1 @@
+# -Users-alons.castillo-Documents-Codex-2026-05-29-a-solas-con-dios-estatico-listo
