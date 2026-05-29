@@ -1355,7 +1355,8 @@ const savedVersesList = document.querySelector("#savedVersesList");
 const habitCount = document.querySelector("#habitCount");
 const themeToggle = document.querySelector("#themeToggle");
 const musicToggle = document.querySelector("#musicToggle");
-const musicToggleHome = document.querySelector("#musicToggleHome");
+const musicPause = document.querySelector("#musicPause");
+const musicNow = document.querySelector("#musicNow");
 const startButton = document.querySelector("#startButton");
 const reminderTime = document.querySelector("#reminderTime");
 const reminderToggle = document.querySelector("#reminderToggle");
@@ -1378,6 +1379,53 @@ let currentVerses = [];
 let currentVariant = null;
 let audioState = null;
 let reminderTimer = null;
+
+const musicPresets = [
+  {
+    name: "Sublime Gracia",
+    chords: [
+      [196, 246.94, 293.66, 392],
+      [174.61, 220, 261.63, 349.23],
+      [146.83, 196, 246.94, 329.63],
+      [164.81, 207.65, 246.94, 329.63],
+    ],
+    melody: [392, 440, 493.88, 392, 329.63, 349.23, 392, 293.66],
+    noteEvery: 3900,
+  },
+  {
+    name: "Cerca de Ti, Señor",
+    chords: [
+      [174.61, 220, 261.63, 349.23],
+      [196, 246.94, 293.66, 392],
+      [220, 261.63, 329.63, 440],
+      [146.83, 196, 246.94, 293.66],
+    ],
+    melody: [349.23, 392, 440, 392, 329.63, 293.66, 329.63, 261.63],
+    noteEvery: 4200,
+  },
+  {
+    name: "Doxología tranquila",
+    chords: [
+      [164.81, 207.65, 246.94, 329.63],
+      [196, 246.94, 293.66, 392],
+      [130.81, 196, 261.63, 329.63],
+      [174.61, 220, 261.63, 349.23],
+    ],
+    melody: [329.63, 392, 369.99, 329.63, 293.66, 261.63, 293.66, 329.63],
+    noteEvery: 4100,
+  },
+  {
+    name: "Oración al amanecer",
+    chords: [
+      [146.83, 196, 246.94, 329.63],
+      [164.81, 220, 261.63, 349.23],
+      [196, 246.94, 293.66, 392],
+      [174.61, 220, 261.63, 349.23],
+    ],
+    melody: [293.66, 329.63, 392, 440, 392, 349.23, 329.63, 293.66],
+    noteEvery: 4300,
+  },
+];
 
 const normalize = (text) =>
   text
@@ -1885,63 +1933,86 @@ function showReminder() {
   });
 }
 
-async function startMusic() {
-  if (audioState) return;
+function updateMusicControls(preset = null) {
+  if (!musicToggle || !musicPause || !musicNow) return;
+  const isPlaying = Boolean(preset);
+  musicToggle.textContent = isPlaying ? "Cambiar himno" : "Reproducir música";
+  musicPause.hidden = !isPlaying;
+  musicNow.textContent = isPlaying ? preset.name : "Himnos suaves";
+}
+
+function nextMusicPresetIndex() {
+  if (!musicPresets.length) return 0;
+  if (!audioState || musicPresets.length === 1) {
+    return Math.floor(Math.random() * musicPresets.length);
+  }
+
+  let nextIndex = Math.floor(Math.random() * musicPresets.length);
+  if (nextIndex === audioState.presetIndex) {
+    nextIndex = (nextIndex + 1) % musicPresets.length;
+  }
+  return nextIndex;
+}
+
+async function startMusic(presetIndex = nextMusicPresetIndex()) {
+  if (audioState) stopMusic({ persist: false, quiet: true });
   const AudioContext = window.AudioContext || window.webkitAudioContext;
   if (!AudioContext) {
     showToast("Este navegador no permite audio ambiental.");
     return;
   }
 
+  const preset = musicPresets[presetIndex] || musicPresets[0];
   const context = new AudioContext();
   const master = context.createGain();
-  master.gain.value = 0.045;
+  master.gain.value = 0.052;
   master.connect(context.destination);
 
   const filter = context.createBiquadFilter();
   filter.type = "lowpass";
-  filter.frequency.value = 1100;
+  filter.frequency.value = 1050;
   filter.connect(master);
 
-  const chords = [
-    [196, 246.94, 293.66, 392],
-    [174.61, 220, 261.63, 349.23],
-    [146.83, 196, 246.94, 329.63],
-    [164.81, 207.65, 246.94, 329.63],
-  ];
+  const melodyGain = context.createGain();
+  melodyGain.gain.value = 0.034;
+  melodyGain.connect(master);
+
+  const activeNotes = new Set();
+  const chords = preset.chords;
   let chordIndex = 0;
+  let noteIndex = 0;
 
   const oscillators = chords[0].map((frequency, index) => {
     const oscillator = context.createOscillator();
     const gain = context.createGain();
     oscillator.type = index % 2 === 0 ? "sine" : "triangle";
     oscillator.frequency.value = frequency;
-    gain.gain.value = 0.012 + index * 0.003;
+    gain.gain.value = 0.01 + index * 0.0025;
     oscillator.connect(gain);
     gain.connect(filter);
     oscillator.start();
     return { oscillator, gain };
   });
 
-  const bellGain = context.createGain();
-  bellGain.gain.value = 0.035;
-  bellGain.connect(master);
-
-  const playBell = () => {
+  const playMelodyNote = () => {
     const now = context.currentTime;
-    const notes = chords[chordIndex];
-    const note = notes[Math.floor(Math.random() * notes.length)] * 2;
-    const bell = context.createOscillator();
+    const frequency = preset.melody[noteIndex % preset.melody.length];
+    noteIndex += 1;
+    if (!frequency) return;
+
+    const tone = context.createOscillator();
     const gain = context.createGain();
-    bell.type = "sine";
-    bell.frequency.setValueAtTime(note, now);
+    tone.type = "sine";
+    tone.frequency.setValueAtTime(frequency, now);
     gain.gain.setValueAtTime(0, now);
-    gain.gain.linearRampToValueAtTime(0.055, now + 0.05);
-    gain.gain.exponentialRampToValueAtTime(0.001, now + 2.8);
-    bell.connect(gain);
-    gain.connect(bellGain);
-    bell.start(now);
-    bell.stop(now + 3);
+    gain.gain.linearRampToValueAtTime(0.075, now + 0.12);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 2.9);
+    tone.connect(gain);
+    gain.connect(melodyGain);
+    tone.start(now);
+    tone.stop(now + 3);
+    activeNotes.add(tone);
+    tone.onended = () => activeNotes.delete(tone);
   };
 
   const changeChord = () => {
@@ -1953,31 +2024,38 @@ async function startMusic() {
   };
 
   const chordTimer = window.setInterval(changeChord, 9500);
-  const bellTimer = window.setInterval(playBell, 5200);
+  const melodyTimer = window.setInterval(playMelodyNote, preset.noteEvery);
 
   await context.resume();
-  audioState = { context, oscillators, chordTimer, bellTimer };
-  musicToggle.textContent = "Pausar música";
-  if (musicToggleHome) musicToggleHome.textContent = "Pausar ambiente";
+  audioState = { context, oscillators, chordTimer, melodyTimer, activeNotes, presetIndex };
+  playMelodyNote();
+  updateMusicControls(preset);
   writeLocal(storageKeys.music, true);
-  showToast("Ambiente suave activado.");
+  showToast(`Reproduciendo: ${preset.name}.`);
 }
 
-function stopMusic() {
+function stopMusic(options = {}) {
   if (!audioState) return;
   audioState.oscillators.forEach(({ oscillator }) => oscillator.stop());
+  audioState.activeNotes.forEach((tone) => {
+    try {
+      tone.stop();
+    } catch {
+      audioState.activeNotes.delete(tone);
+    }
+  });
   window.clearInterval(audioState.chordTimer);
-  window.clearInterval(audioState.bellTimer);
-  audioState.context.close();
+  window.clearInterval(audioState.melodyTimer);
+  audioState.context.close().catch(() => {});
   audioState = null;
-  musicToggle.textContent = "Música suave";
-  if (musicToggleHome) musicToggleHome.textContent = "Ambiente suave";
-  writeLocal(storageKeys.music, false);
+  updateMusicControls();
+  if (options.persist !== false) writeLocal(storageKeys.music, false);
+  if (!options.quiet) showToast("Música pausada.");
 }
 
 function toggleMusic() {
   if (audioState) {
-    stopMusic();
+    startMusic(nextMusicPresetIndex());
   } else {
     startMusic();
   }
@@ -2068,7 +2146,7 @@ themeToggle.addEventListener("click", () => {
 });
 
 musicToggle.addEventListener("click", toggleMusic);
-musicToggleHome?.addEventListener("click", toggleMusic);
+musicPause?.addEventListener("click", () => stopMusic());
 
 profileSave?.addEventListener("click", saveProfile);
 profileName?.addEventListener("keydown", (event) => {
