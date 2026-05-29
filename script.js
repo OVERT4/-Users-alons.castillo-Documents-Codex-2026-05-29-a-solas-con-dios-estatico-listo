@@ -1338,6 +1338,7 @@ const input = document.querySelector("#feelingInput");
 const quickTopics = document.querySelectorAll("[data-query]");
 const resultTitle = document.querySelector("#resultTitle");
 const resultSummary = document.querySelector("#resultSummary");
+const resultsArea = document.querySelector("#resultsArea");
 const matchedTopic = document.querySelector("#matchedTopic");
 const verseGrid = document.querySelector("#verseGrid");
 const prayerText = document.querySelector("#prayerText");
@@ -1556,6 +1557,14 @@ function updateHistoryControls() {
   nextResult.disabled = total <= 1 || searchState.activeIndex >= total - 1;
 }
 
+function showResults() {
+  resultsArea?.classList.remove("is-hidden");
+}
+
+function hideResults() {
+  resultsArea?.classList.add("is-hidden");
+}
+
 function verseId(verse) {
   return `${verse.reference}::${verse.text}`;
 }
@@ -1602,6 +1611,7 @@ function buildGeneratedResponse(topic, query, variant = null) {
 }
 
 function renderTopic(topic, query = "", variant = null) {
+  showResults();
   const generated = buildGeneratedResponse(topic, query, variant);
   currentTopic = topic;
   currentVariant = variant;
@@ -1662,6 +1672,13 @@ function renderTopic(topic, query = "", variant = null) {
 }
 
 function runSearch(query, shouldRemember = true) {
+  if (!query.trim()) {
+    hideResults();
+    input.focus();
+    showToast("Escribe algo de tu corazón para buscar una guía bíblica.");
+    return;
+  }
+
   const topic = findBestTopic(query);
   const variant = createVariant(topic, query);
   if (shouldRemember) rememberVariant(variant);
@@ -2130,7 +2147,9 @@ savedVersesList.addEventListener("click", (event) => {
     favorites = favorites.filter((_, itemIndex) => itemIndex !== index);
     writeLocal(storageKeys.favorites, favorites);
     renderSavedVerses();
-    renderTopic(currentTopic, currentVariant?.query || input.value, currentVariant);
+    if (currentVariant || !resultsArea?.classList.contains("is-hidden")) {
+      renderTopic(currentTopic, currentVariant?.query || input.value, currentVariant);
+    }
   }
 });
 
@@ -2187,6 +2206,5 @@ if (initialQuery) {
   runSearch(initialQuery, false);
   setActiveView("escribir", true);
 } else {
-  const initialTopic = topics[0];
-  renderTopic(initialTopic, "", { offset: 0 });
+  hideResults();
 }
