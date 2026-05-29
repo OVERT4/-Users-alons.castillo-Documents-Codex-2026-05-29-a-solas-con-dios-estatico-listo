@@ -8,6 +8,7 @@
       content="A Solas con Dios — Brújula Bíblica: un espacio privado y sin juicios para acercarte a Dios con lo que hay en tu corazón."
     />
     <title>A Solas con Dios — Brújula Bíblica</title>
+    <link rel="preload" as="image" href="hero-bible-search.png" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -41,7 +42,7 @@
             <div class="stage-overlay" aria-hidden="true"></div>
 
             <div class="home-grid">
-              <section class="home-copy">
+              <section class="home-copy reveal">
                 <p class="eyebrow">Espacio privado de oración</p>
                 <h1>A Solas con Dios</h1>
                 <p class="home-subtitle">
@@ -49,15 +50,15 @@
                 </p>
 
                 <div class="steps-grid" aria-label="Cómo funciona">
-                  <article class="soft-card">
+                  <article class="soft-card reveal">
                     <strong>Escribe</strong>
                     <p>Pon en palabras lo que hay en tu corazón.</p>
                   </article>
-                  <article class="soft-card">
+                  <article class="soft-card reveal">
                     <strong>Recibe</strong>
                     <p>Encuentra versículos, oración y dirección bíblica.</p>
                   </article>
-                  <article class="soft-card">
+                  <article class="soft-card reveal">
                     <strong>Reflexiona</strong>
                     <p>Vuelve a Dios con gratitud, preguntas y pasos concretos.</p>
                   </article>
@@ -71,14 +72,14 @@
               </section>
 
               <aside class="home-widgets" aria-label="Acompañamiento diario">
-                <article class="widget-card">
+                <article class="widget-card reveal">
                   <p class="eyebrow">Versículo del día</p>
                   <strong id="dailyReference">Cargando...</strong>
                   <p class="daily-text" id="dailyText">Buscando un versículo para hoy.</p>
                   <span id="dailyTranslation">Reina-Valera 1909</span>
                 </article>
 
-                <article class="widget-card">
+                <article class="widget-card reveal">
                   <p class="eyebrow">Hábito espiritual</p>
                   <div class="habit-row">
                     <strong id="habitCount">0</strong>
@@ -86,7 +87,7 @@
                   </div>
                 </article>
 
-                <article class="widget-card">
+                <article class="widget-card reveal">
                   <p class="eyebrow">Recordatorio diario</p>
                   <div class="reminder-row">
                     <input id="reminderTime" type="time" value="08:00" />
@@ -95,6 +96,27 @@
                   <p class="muted-copy" id="reminderStatus">
                     Guarda una hora en este dispositivo y recibe una invitación diaria con un versículo.
                   </p>
+                </article>
+
+                <article class="widget-card profile-card reveal">
+                  <p class="eyebrow">Mi espacio</p>
+                  <strong id="profileGreeting">Hola, bienvenido</strong>
+                  <div class="profile-row">
+                    <input id="profileName" type="text" placeholder="Tu nombre" autocomplete="name" />
+                    <button class="primary-small" id="profileSave" type="button">Guardar</button>
+                  </div>
+                  <p class="muted-copy">Este perfil vive solo en este dispositivo; no es una cuenta en internet.</p>
+                </article>
+
+                <article class="widget-card music-card reveal">
+                  <p class="eyebrow">Música para orar</p>
+                  <strong>Ambiente suave y opciones externas</strong>
+                  <p class="muted-copy">El sonido interno ahora es más cálido. También puedes abrir música de adoración en YouTube sin descargar nada.</p>
+                  <div class="music-links">
+                    <button class="primary-small" id="musicToggleHome" type="button">Ambiente suave</button>
+                    <a href="https://www.youtube.com/results?search_query=m%C3%BAsica+instrumental+cristiana+para+orar" target="_blank" rel="noreferrer">YouTube cristiana</a>
+                    <a href="https://www.youtube.com/results?search_query=m%C3%BAsica+instrumental+cat%C3%B3lica+para+orar" target="_blank" rel="noreferrer">YouTube católica</a>
+                  </div>
                 </article>
               </aside>
             </div>
