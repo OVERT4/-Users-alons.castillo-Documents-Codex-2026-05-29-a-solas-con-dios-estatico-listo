@@ -1312,6 +1312,7 @@ const storageKeys = {
   dailyVerse: "asolas.dailyVerse.static.v1",
   reminder: "asolas.reminder.static.v1",
   music: "asolas.music.static.v1",
+  profile: "asolas.profile.static.v1",
 };
 
 const fallbackDailyVerses = [
@@ -1354,6 +1355,7 @@ const savedVersesList = document.querySelector("#savedVersesList");
 const habitCount = document.querySelector("#habitCount");
 const themeToggle = document.querySelector("#themeToggle");
 const musicToggle = document.querySelector("#musicToggle");
+const musicToggleHome = document.querySelector("#musicToggleHome");
 const startButton = document.querySelector("#startButton");
 const reminderTime = document.querySelector("#reminderTime");
 const reminderToggle = document.querySelector("#reminderToggle");
@@ -1361,12 +1363,16 @@ const reminderStatus = document.querySelector("#reminderStatus");
 const dailyReference = document.querySelector("#dailyReference");
 const dailyText = document.querySelector("#dailyText");
 const dailyTranslation = document.querySelector("#dailyTranslation");
+const profileName = document.querySelector("#profileName");
+const profileSave = document.querySelector("#profileSave");
+const profileGreeting = document.querySelector("#profileGreeting");
 
 let searchState = readLocal(storageKeys.search, { counters: {}, history: [], activeIndex: -1 });
 let journal = readLocal(storageKeys.journal, []);
 let favorites = readLocal(storageKeys.favorites, []);
 let habit = readLocal(storageKeys.habit, { streak: 0, lastWriteDate: "" });
 let reminder = readLocal(storageKeys.reminder, { enabled: false, time: "08:00", permission: "default" });
+let profile = readLocal(storageKeys.profile, { name: "" });
 let currentTopic = topics[0];
 let currentVerses = [];
 let currentVariant = null;
@@ -1723,6 +1729,19 @@ function renderHabit() {
   habitCount.textContent = habit.streak || 0;
 }
 
+function renderProfile() {
+  const name = profile.name?.trim();
+  profileGreeting.textContent = name ? `Hola, ${name}` : "Hola, bienvenido";
+  profileName.value = name || "";
+}
+
+function saveProfile() {
+  profile = { name: profileName.value.trim().slice(0, 40) };
+  writeLocal(storageKeys.profile, profile);
+  renderProfile();
+  showToast(profile.name ? `Listo, ${profile.name}. Tu espacio quedó guardado aquí.` : "Perfil local actualizado.");
+}
+
 function toggleFavorite(verse) {
   const exists = favorites.some((item) => verseId(item) === verseId(verse));
   favorites = exists
@@ -1876,40 +1895,114 @@ async function startMusic() {
 
   const context = new AudioContext();
   const master = context.createGain();
-  master.gain.value = 0.032;
+  master.gain.value = 0.045;
   master.connect(context.destination);
 
   const filter = context.createBiquadFilter();
   filter.type = "lowpass";
-  filter.frequency.value = 900;
+  filter.frequency.value = 1100;
   filter.connect(master);
 
-  const frequencies = [196, 246.94, 293.66, 392];
-  const oscillators = frequencies.map((frequency, index) => {
+  const chords = [
+    [196, 246.94, 293.66, 392],
+    [174.61, 220, 261.63, 349.23],
+    [146.83, 196, 246.94, 329.63],
+    [164.81, 207.65, 246.94, 329.63],
+  ];
+  let chordIndex = 0;
+
+  const oscillators = chords[0].map((frequency, index) => {
     const oscillator = context.createOscillator();
     const gain = context.createGain();
     oscillator.type = index % 2 === 0 ? "sine" : "triangle";
     oscillator.frequency.value = frequency;
-    gain.gain.value = index === 3 ? 0.018 : 0.034;
+    gain.gain.value = 0.012 + index * 0.003;
     oscillator.connect(gain);
     gain.connect(filter);
     oscillator.start();
-    return oscillator;
+    return { oscillator, gain };
   });
 
+  const bellGain = context.createGain();
+  bellGain.gain.value = 0.035;
+  bellGain.connect(master);
+
+  const playBell = () => {
+    const now = context.currentTime;
+    const notes = chords[chordIndex];
+    const note = notes[Math.floor(Math.random() * notes.length)] * 2;
+    const bell = context.createOscillator();
+    const gain = context.createGain();
+    bell.type = "sine";
+    bell.frequency.setValueAtTime(note, now);
+    gain.gain.setValueAtTime(0, now);
+    gain.gain.linearRampToValueAtTime(0.055, now + 0.05);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 2.8);
+    bell.connect(gain);
+    gain.connect(bellGain);
+    bell.start(now);
+    bell.stop(now + 3);
+  };
+
+  const changeChord = () => {
+    chordIndex = (chordIndex + 1) % chords.length;
+    const now = context.currentTime;
+    chords[chordIndex].forEach((frequency, index) => {
+      oscillators[index].oscillator.frequency.exponentialRampToValueAtTime(frequency, now + 2.5);
+    });
+  };
+
+  const chordTimer = window.setInterval(changeChord, 9500);
+  const bellTimer = window.setInterval(playBell, 5200);
+
   await context.resume();
-  audioState = { context, oscillators };
+  audioState = { context, oscillators, chordTimer, bellTimer };
   musicToggle.textContent = "Pausar música";
+  if (musicToggleHome) musicToggleHome.textContent = "Pausar ambiente";
   writeLocal(storageKeys.music, true);
+  showToast("Ambiente suave activado.");
 }
 
 function stopMusic() {
   if (!audioState) return;
-  audioState.oscillators.forEach((oscillator) => oscillator.stop());
+  audioState.oscillators.forEach(({ oscillator }) => oscillator.stop());
+  window.clearInterval(audioState.chordTimer);
+  window.clearInterval(audioState.bellTimer);
   audioState.context.close();
   audioState = null;
   musicToggle.textContent = "Música suave";
+  if (musicToggleHome) musicToggleHome.textContent = "Ambiente suave";
   writeLocal(storageKeys.music, false);
+}
+
+function toggleMusic() {
+  if (audioState) {
+    stopMusic();
+  } else {
+    startMusic();
+  }
+}
+
+function initRevealAnimations() {
+  const items = document.querySelectorAll(".reveal");
+  if (!items.length) return;
+  if (!("IntersectionObserver" in window)) {
+    items.forEach((item) => item.classList.add("is-visible"));
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.16 },
+  );
+
+  items.forEach((item) => observer.observe(item));
 }
 
 form.addEventListener("submit", (event) => {
@@ -1974,12 +2067,12 @@ themeToggle.addEventListener("click", () => {
   applyTheme(nextTheme);
 });
 
-musicToggle.addEventListener("click", async () => {
-  if (audioState) {
-    stopMusic();
-  } else {
-    await startMusic();
-  }
+musicToggle.addEventListener("click", toggleMusic);
+musicToggleHome?.addEventListener("click", toggleMusic);
+
+profileSave?.addEventListener("click", saveProfile);
+profileName?.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") saveProfile();
 });
 
 reminderTime.addEventListener("change", () => {
@@ -2002,11 +2095,13 @@ reminderToggle.addEventListener("click", async () => {
 
 applyTheme(readLocal(storageKeys.theme, "light"));
 renderHabit();
+renderProfile();
 renderJournal();
 renderSavedVerses();
 renderReminder();
 scheduleReminder();
 loadDailyVerse();
+initRevealAnimations();
 
 const initialQuery = decodeURIComponent(window.location.hash.replace(/^#/, ""));
 if (initialQuery) {
