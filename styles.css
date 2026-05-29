@@ -11,6 +11,7 @@
   --white: #ffffff;
   --shadow: 0 24px 70px rgba(34, 42, 37, 0.16);
   --visual-hero: url("https://commons.wikimedia.org/wiki/Special:FilePath/Saint%20Patrick%20Catholic%20Church%20%28Junction%20City%2C%20Ohio%29%20-%20stained%20glass%2C%20Glory%20of%20the%20Cross.jpg?width=1600");
+  --visual-writing-stage: url("https://commons.wikimedia.org/wiki/Special:FilePath/Church%20on%20the%20hill%20in%20the%20early%20morning.jpg?width=1600");
   --visual-writing: url("https://commons.wikimedia.org/wiki/Special:FilePath/Catholic%20Rosary.jpg?width=1600");
   --visual-journal: url("https://commons.wikimedia.org/wiki/Special:FilePath/BucarestStavropoleosChurchBeforeEntrance.jpg?width=1600");
   --visual-verses: url("https://commons.wikimedia.org/wiki/Special:FilePath/The%20Dove%20and%20Cross.%20Stained-glass%20window%20at%20Church%20of%20Our%20Savior%20MCC%20%28Metropolitan%20Community%20Church%2C%20Church%29%2C%202011%20South%20Federal%20Hwy%2C%20Boynton%20Beach%2C%20Florida%2033435%2C%20USA.jpg?width=1600");
@@ -74,7 +75,7 @@ button {
 }
 
 .write-media {
-  background-image: var(--visual-writing);
+  background-image: var(--visual-writing-stage);
 }
 
 .stage-overlay {
