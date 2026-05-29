@@ -14,9 +14,15 @@
     <div class="app-shell">
       <header class="app-header">
         <button class="brand" type="button" data-view-target="inicio" aria-label="Ir al inicio">
-          <span class="brand-mark">AD</span>
-          <span>
-            <strong>A Solas con Dios</strong>
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 42 42" role="img">
+              <circle cx="21" cy="21" r="18" />
+              <path d="M21 10v22M13.5 18.5h15" />
+              <path d="M21 6 25.5 21 21 36 16.5 21Z" />
+            </svg>
+          </span>
+          <span class="brand-copy">
+            <strong class="brand-name">A Solas con Dios</strong>
             <small>Brújula Bíblica</small>
           </span>
         </button>
@@ -41,7 +47,7 @@
       <main>
         <section class="app-view is-active" id="inicioView" data-view="inicio">
           <div class="home-hero">
-            <div class="stage-media" aria-hidden="true"></div>
+            <div class="stage-media home-media" aria-hidden="true"></div>
             <div class="stage-overlay" aria-hidden="true"></div>
 
             <div class="home-grid">
@@ -116,11 +122,16 @@
               </aside>
             </div>
           </div>
+
+          <footer class="home-privacy-link reveal">
+            <span>Privacidad y propósito</span>
+            <a href="privacidad.html" target="_blank" rel="noreferrer">Aviso de privacidad</a>
+          </footer>
         </section>
 
         <section class="app-view" id="escribirView" data-view="escribir">
           <section class="search-stage" id="writeArea">
-            <div class="stage-media" aria-hidden="true"></div>
+            <div class="stage-media write-media" aria-hidden="true"></div>
             <div class="stage-overlay" aria-hidden="true"></div>
 
             <div class="search-panel">
@@ -152,6 +163,10 @@
                 <button type="button" data-query="cansancio y carga">Cansancio</button>
                 <button type="button" data-query="necesito dirección">Dirección</button>
                 <button type="button" data-query="enojo y frustración">Enojo</button>
+                <button type="button" data-query="perdonar una herida">Perdón</button>
+                <button type="button" data-query="tentación y dominio propio">Tentación</button>
+                <button type="button" data-query="gratitud y alegría">Gratitud</button>
+                <button type="button" data-query="necesidad y provisión">Provisión</button>
               </div>
             </div>
           </section>
@@ -164,7 +179,7 @@
             </div>
           </section>
 
-          <section class="results-shell" id="resultsArea" aria-live="polite">
+          <section class="results-shell is-hidden" id="resultsArea" aria-live="polite">
             <div class="results-heading">
               <div>
                 <p class="eyebrow">Resultado</p>
@@ -232,6 +247,8 @@
         </section>
 
         <section class="app-view panel-view" id="diarioView" data-view="diario">
+          <div class="panel-media panel-media-journal" aria-hidden="true"></div>
+          <div class="panel-overlay" aria-hidden="true"></div>
           <div class="section-shell">
             <p class="eyebrow">Diario personal</p>
             <h2>Mi Diario</h2>
@@ -249,6 +266,8 @@
         </section>
 
         <section class="app-view panel-view" id="versiculosView" data-view="versiculos">
+          <div class="panel-media panel-media-verses" aria-hidden="true"></div>
+          <div class="panel-overlay" aria-hidden="true"></div>
           <div class="section-shell">
             <p class="eyebrow">Versículos guardados</p>
             <h2>Mis Versículos</h2>
