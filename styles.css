@@ -60,7 +60,10 @@ button {
 }
 
 .stage-media {
-  background-image: url("hero-bible-search.png?v=3"), url("assets/hero-bible-search.png?v=3");
+  background-image:
+    url("hero-bible-search.png?v=4"),
+    url("https://raw.githubusercontent.com/OVERT4/-Users-alons.castillo-Documents-Codex-2026-05-29-a-solas-con-dios-estatico-listo/main/hero-bible-search.png"),
+    url("assets/hero-bible-search.png?v=4");
   background-position: center;
   background-size: cover;
   transform: scale(1.02);
