@@ -31,7 +31,11 @@
 
         <div class="header-actions">
           <button class="utility-button" id="themeToggle" type="button">Modo oscuro</button>
-          <button class="utility-button" id="musicToggle" type="button">Música suave</button>
+          <div class="music-tools" aria-label="Música instrumental">
+            <button class="utility-button" id="musicToggle" type="button">Reproducir música</button>
+            <button class="utility-button music-pause" id="musicPause" type="button" hidden>Pausar</button>
+            <span class="music-now" id="musicNow">Himnos suaves</span>
+          </div>
         </div>
       </header>
 
@@ -72,6 +76,19 @@
               </section>
 
               <aside class="home-widgets" aria-label="Acompañamiento diario">
+                <article class="widget-card profile-card featured-profile reveal">
+                  <p class="eyebrow">Iniciar mi espacio</p>
+                  <strong id="profileGreeting">Hola, bienvenido</strong>
+                  <p class="muted-copy">
+                    Guarda tu nombre y tu progreso espiritual en este dispositivo para volver a tu diario, hábito y versículos.
+                  </p>
+                  <div class="profile-row">
+                    <input id="profileName" type="text" placeholder="Tu nombre" autocomplete="name" />
+                    <button class="primary-small" id="profileSave" type="button">Guardar</button>
+                  </div>
+                  <span>Local y privado</span>
+                </article>
+
                 <article class="widget-card reveal">
                   <p class="eyebrow">Versículo del día</p>
                   <strong id="dailyReference">Cargando...</strong>
@@ -96,27 +113,6 @@
                   <p class="muted-copy" id="reminderStatus">
                     Guarda una hora en este dispositivo y recibe una invitación diaria con un versículo.
                   </p>
-                </article>
-
-                <article class="widget-card profile-card reveal">
-                  <p class="eyebrow">Mi espacio</p>
-                  <strong id="profileGreeting">Hola, bienvenido</strong>
-                  <div class="profile-row">
-                    <input id="profileName" type="text" placeholder="Tu nombre" autocomplete="name" />
-                    <button class="primary-small" id="profileSave" type="button">Guardar</button>
-                  </div>
-                  <p class="muted-copy">Este perfil vive solo en este dispositivo; no es una cuenta en internet.</p>
-                </article>
-
-                <article class="widget-card music-card reveal">
-                  <p class="eyebrow">Música para orar</p>
-                  <strong>Ambiente suave y opciones externas</strong>
-                  <p class="muted-copy">El sonido interno ahora es más cálido. También puedes abrir música de adoración en YouTube sin descargar nada.</p>
-                  <div class="music-links">
-                    <button class="primary-small" id="musicToggleHome" type="button">Ambiente suave</button>
-                    <a href="https://www.youtube.com/results?search_query=m%C3%BAsica+instrumental+cristiana+para+orar" target="_blank" rel="noreferrer">YouTube cristiana</a>
-                    <a href="https://www.youtube.com/results?search_query=m%C3%BAsica+instrumental+cat%C3%B3lica+para+orar" target="_blank" rel="noreferrer">YouTube católica</a>
-                  </div>
                 </article>
               </aside>
             </div>
@@ -158,6 +154,14 @@
                 <button type="button" data-query="necesito dirección">Dirección</button>
                 <button type="button" data-query="enojo y frustración">Enojo</button>
               </div>
+            </div>
+          </section>
+
+          <section class="section-visual writing-visual reveal" aria-label="Espacio de escritura espiritual">
+            <div class="section-visual-copy">
+              <p class="eyebrow">Antes de escribir</p>
+              <h3>Este puede ser un lugar para soltar el peso sin fingir que todo está bien.</h3>
+              <p>Escribe con calma. Dios escucha incluso lo que todavía no sabes explicar.</p>
             </div>
           </section>
 
@@ -235,6 +239,12 @@
             <p class="privacy-note compact">
               Tu diario vive solo en este dispositivo. Nunca se sube a ningún servidor.
             </p>
+            <div class="section-visual journal-visual compact-visual reveal" aria-label="Imagen del diario espiritual">
+              <div class="section-visual-copy">
+                <p class="eyebrow">Memoria con Dios</p>
+                <h3>Vuelve a leer lo que oraste y reconoce cómo Dios te ha sostenido.</h3>
+              </div>
+            </div>
             <div class="entry-list" id="journalList"></div>
           </div>
         </section>
@@ -245,6 +255,12 @@
             <h2>Mis Versículos</h2>
             <p class="muted-copy">Los versículos que marques se guardan únicamente en este dispositivo.</p>
             <p class="copy-status" id="savedCopyStatus" role="status" aria-live="polite"></p>
+            <div class="section-visual verses-visual compact-visual reveal" aria-label="Imagen de versículos guardados">
+              <div class="section-visual-copy">
+                <p class="eyebrow">Palabra para volver</p>
+                <h3>Guarda los versículos que quieras recordar cuando el corazón necesite dirección.</h3>
+              </div>
+            </div>
             <div class="saved-grid" id="savedVersesList"></div>
           </div>
         </section>
