@@ -1,0 +1,3 @@
+(function(){
+document.head.insertAdjacentHTML("beforeend",`<style>.free-prayer-compose-grid{align-items:start;max-width:960px}.free-prayer-compose-grid .free-prayer-form{align-content:start;gap:12px;padding:22px;min-height:0}.free-prayer-form textarea{height:148px;min-height:120px;resize:vertical}.free-prayer-form .primary-cta{justify-self:start;width:auto;min-height:44px;margin-top:4px;padding:0 22px}.free-prayer-visual{height:360px}.free-prayer-visual img{height:100%;min-height:0}@media(max-width:900px){.free-prayer-compose-grid{max-width:none}.free-prayer-visual{height:260px}.free-prayer-form textarea{height:138px}}</style>`);
+})();
