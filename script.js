@@ -1307,6 +1307,10 @@ const storageKeys = {
   search: "asolas.searchState.static.v1",
   journal: "asolas.journal.static.v1",
   favorites: "asolas.favoriteVerses.static.v1",
+  letters: "asolas.letters.static.v1",
+  prayerFavorites: "asolas.prayerFavorites.static.v1",
+  memory: "asolas.memory.static.v1",
+  intercession: "asolas.intercession.static.v1",
   theme: "asolas.theme.static.v1",
   habit: "asolas.habit.static.v1",
   dailyVerse: "asolas.dailyVerse.static.v1",
@@ -1330,6 +1334,204 @@ const fallbackDailyVerses = [
     reference: "Isaías 41:10",
     text: "No temas, que yo soy contigo; no desmayes, que yo soy tu Dios que te esfuerzo.",
     translation: "Reina-Valera 1909",
+  },
+];
+
+const memoryVerses = [
+  {
+    reference: "Salmos 119:105",
+    text: "Lámpara es a mis pies tu palabra, y lumbrera a mi camino.",
+  },
+  {
+    reference: "Filipenses 4:6-7",
+    text:
+      "Por nada estéis afanosos; sino sean notorias vuestras peticiones delante de Dios en toda oración y ruego, con hacimiento de gracias.",
+  },
+  {
+    reference: "Isaías 41:10",
+    text: "No temas, que yo soy contigo; no desmayes, que yo soy tu Dios que te esfuerzo.",
+  },
+  {
+    reference: "Mateo 11:28",
+    text: "Venid a mí todos los que estáis trabajados y cargados, que yo os haré descansar.",
+  },
+  {
+    reference: "Proverbios 3:5-6",
+    text: "Fíate de Jehová de todo tu corazón, y no estribes en tu prudencia. Reconócelo en todos tus caminos.",
+  },
+  {
+    reference: "1 Pedro 5:7",
+    text: "Echando toda vuestra solicitud en él, porque él tiene cuidado de vosotros.",
+  },
+  {
+    reference: "Romanos 8:1",
+    text: "Ahora pues, ninguna condenación hay para los que están en Cristo Jesús.",
+  },
+  {
+    reference: "Salmos 23:1",
+    text: "Jehová es mi pastor; nada me faltará.",
+  },
+];
+
+const guidedPrayers = [
+  {
+    id: "miedo",
+    label: "Miedo",
+    prayer:
+      "Señor, cuando el miedo quiera gobernar mi día, recuérdame que tú estás conmigo. Dame valentía para obedecer, paz para respirar y fe para mirar tu presencia antes que mi temor. Amén.",
+  },
+  {
+    id: "culpa",
+    label: "Culpa",
+    prayer:
+      "Padre, no quiero esconderme de ti. Muéstrame lo que debo confesar, dame arrepentimiento verdadero y ayúdame a recibir el perdón que Cristo ganó por mí. Amén.",
+  },
+  {
+    id: "enojo",
+    label: "Enojo",
+    prayer:
+      "Dios, ordena mi corazón antes de que mis palabras hagan daño. Enséñame a buscar justicia con verdad, dominio propio y misericordia. Amén.",
+  },
+  {
+    id: "gratitud",
+    label: "Gratitud",
+    prayer:
+      "Señor, abre mis ojos para reconocer tus regalos de hoy. Que mi gratitud no se quede en palabras, sino que se vuelva humildad, alegría y amor hacia otros. Amén.",
+  },
+  {
+    id: "enfermedad",
+    label: "Enfermedad",
+    prayer:
+      "Dios de misericordia, trae fortaleza al cuerpo, descanso al alma y esperanza al corazón. Acompaña este proceso con tu presencia y guía cada cuidado necesario. Amén.",
+  },
+  {
+    id: "familia",
+    label: "Familia",
+    prayer:
+      "Padre, pongo mi familia delante de ti. Sana lo que está herido, fortalece el amor, danos paciencia y enséñanos a tratarnos con la gracia con que tú nos recibes. Amén.",
+  },
+  {
+    id: "decisiones",
+    label: "Decisiones",
+    prayer:
+      "Señor, dame sabiduría limpia para decidir. Corrige mis motivos, abre y cierra puertas conforme a tu voluntad, y ayúdame a obedecer el siguiente paso con paz. Amén.",
+  },
+  {
+    id: "soledad",
+    label: "Soledad",
+    prayer:
+      "Dios, cuando me sienta invisible, recuérdame que tú me ves y no me abandonas. Hazme descansar en tu compañía y guíame hacia relaciones sanas. Amén.",
+  },
+  {
+    id: "duelo",
+    label: "Duelo",
+    prayer:
+      "Señor, acompáñame en este dolor sin exigir que lo esconda. Consuela mi corazón, sostén mis recuerdos y enséñame a esperar en tu vida aun entre lágrimas. Amén.",
+  },
+  {
+    id: "tentacion",
+    label: "Tentación",
+    prayer:
+      "Padre, muéstrame la salida antes de que negocie con lo que me aparta de ti. Dame dominio propio, hambre por tu Palabra y valor para huir hacia la libertad. Amén.",
+  },
+];
+
+const promiseThemes = [
+  {
+    id: "esperanza",
+    label: "Esperanza",
+    promises: [
+      {
+        reference: "Romanos 15:13",
+        text: "Y el Dios de esperanza os llene de todo gozo y paz creyendo, para que abundéis en esperanza por la virtud del Espíritu Santo.",
+        context: "Dios no solo pide esperanza; la llena con gozo, paz y la obra del Espíritu.",
+      },
+      {
+        reference: "Jeremías 29:11",
+        text: "Porque yo sé los pensamientos que tengo acerca de vosotros, dice Jehová, pensamientos de paz, y no de mal, para daros el fin que esperáis.",
+        context: "La historia no queda definida por la confusión presente, sino por la fidelidad de Dios.",
+      },
+    ],
+  },
+  {
+    id: "provision",
+    label: "Provisión",
+    promises: [
+      {
+        reference: "Filipenses 4:19",
+        text: "Mi Dios, pues, suplirá todo lo que os falta conforme a sus riquezas en gloria en Cristo Jesús.",
+        context: "La necesidad se presenta al Padre que conoce lo que falta y sabe sostener.",
+      },
+      {
+        reference: "Mateo 6:33",
+        text: "Mas buscad primeramente el reino de Dios y su justicia, y todas estas cosas os serán añadidas.",
+        context: "La provisión se recibe mientras el corazón aprende a ordenar sus prioridades.",
+      },
+    ],
+  },
+  {
+    id: "miedo",
+    label: "Miedo",
+    promises: [
+      {
+        reference: "Isaías 41:10",
+        text: "No temas, que yo soy contigo; no desmayes, que yo soy tu Dios que te esfuerzo.",
+        context: "Dios responde al miedo con presencia, ayuda y sostén.",
+      },
+      {
+        reference: "Salmos 56:3",
+        text: "En el día que temo, yo en ti confío.",
+        context: "La confianza bíblica puede empezar en el mismo día del temor.",
+      },
+    ],
+  },
+  {
+    id: "perdon",
+    label: "Perdón",
+    promises: [
+      {
+        reference: "1 Juan 1:9",
+        text: "Si confesamos nuestros pecados, él es fiel y justo para que nos perdone nuestros pecados, y nos limpie de toda maldad.",
+        context: "Confesar abre espacio para perdón y limpieza, no para condenación.",
+      },
+      {
+        reference: "Miqueas 7:19",
+        text: "Él tornará, él tendrá misericordia de nosotros; él sujetará nuestras iniquidades.",
+        context: "La misericordia de Dios es más fuerte que el historial que te acusa.",
+      },
+    ],
+  },
+  {
+    id: "proposito",
+    label: "Propósito",
+    promises: [
+      {
+        reference: "Efesios 2:10",
+        text: "Porque somos hechura suya, criados en Cristo Jesús para buenas obras, las cuales Dios preparó para que anduviésemos en ellas.",
+        context: "Tu vida no es accidente; Dios forma caminos de obediencia y fruto.",
+      },
+      {
+        reference: "Romanos 8:28",
+        text: "Y sabemos que a los que a Dios aman, todas las cosas les ayudan a bien.",
+        context: "Dios puede trabajar incluso con piezas difíciles sin perder su propósito.",
+      },
+    ],
+  },
+  {
+    id: "descanso",
+    label: "Descanso",
+    promises: [
+      {
+        reference: "Mateo 11:28",
+        text: "Venid a mí todos los que estáis trabajados y cargados, que yo os haré descansar.",
+        context: "Jesús invita al cansado a venir antes de seguir cargando solo.",
+      },
+      {
+        reference: "Salmos 23:2-3",
+        text: "En lugares de delicados pastos me hará yacer: junto a aguas de reposo me pastoreará. Confortará mi alma.",
+        context: "El Pastor restaura el alma, no solo la agenda.",
+      },
+    ],
   },
 ];
 
@@ -1368,10 +1570,37 @@ const dailyTranslation = document.querySelector("#dailyTranslation");
 const profileName = document.querySelector("#profileName");
 const profileSave = document.querySelector("#profileSave");
 const profileGreeting = document.querySelector("#profileGreeting");
+const memoryReference = document.querySelector("#memoryReference");
+const memoryText = document.querySelector("#memoryText");
+const memoryToggle = document.querySelector("#memoryToggle");
+const memoryReveal = document.querySelector("#memoryReveal");
+const memoryStatus = document.querySelector("#memoryStatus");
+const journalPatterns = document.querySelector("#journalPatterns");
+const favoritePatterns = document.querySelector("#favoritePatterns");
+const spiritualHistoryNote = document.querySelector("#spiritualHistoryNote");
+const letterForm = document.querySelector("#letterForm");
+const letterInput = document.querySelector("#letterInput");
+const lettersList = document.querySelector("#lettersList");
+const prayerSituationGrid = document.querySelector("#prayerSituationGrid");
+const guidedPrayerTitle = document.querySelector("#guidedPrayerTitle");
+const guidedPrayerText = document.querySelector("#guidedPrayerText");
+const copyGuidedPrayer = document.querySelector("#copyGuidedPrayer");
+const saveGuidedPrayer = document.querySelector("#saveGuidedPrayer");
+const guidedPrayerStatus = document.querySelector("#guidedPrayerStatus");
+const savedPrayersList = document.querySelector("#savedPrayersList");
+const promiseFilters = document.querySelector("#promiseFilters");
+const promisesGrid = document.querySelector("#promisesGrid");
+const intercessionForm = document.querySelector("#intercessionForm");
+const intercessionInput = document.querySelector("#intercessionInput");
+const intercessionList = document.querySelector("#intercessionList");
 
 let searchState = readLocal(storageKeys.search, { counters: {}, history: [], activeIndex: -1 });
 let journal = readLocal(storageKeys.journal, []);
 let favorites = readLocal(storageKeys.favorites, []);
+let letters = readLocal(storageKeys.letters, []);
+let prayerFavorites = readLocal(storageKeys.prayerFavorites, []);
+let memory = readLocal(storageKeys.memory, { weekKey: "", memorizing: false, remembered: false, reveal: false });
+let intercessions = readLocal(storageKeys.intercession, []);
 let habit = readLocal(storageKeys.habit, { streak: 0, lastWriteDate: "" });
 let reminder = readLocal(storageKeys.reminder, { enabled: false, time: "08:00", permission: "default" });
 let profile = readLocal(storageKeys.profile, { name: "" });
@@ -1380,6 +1609,8 @@ let currentVerses = [];
 let currentVariant = null;
 let audioState = null;
 let reminderTimer = null;
+let selectedGuidedPrayerId = guidedPrayers[0]?.id || "miedo";
+let selectedPromiseThemeId = "todos";
 
 const musicPresets = [
   {
@@ -1476,11 +1707,60 @@ function yesterdayKey() {
   return todayKey(date);
 }
 
+function weekKey(date = new Date()) {
+  const start = new Date(date);
+  const day = start.getDay() || 7;
+  start.setHours(0, 0, 0, 0);
+  start.setDate(start.getDate() + 4 - day);
+  const yearStart = new Date(start.getFullYear(), 0, 1);
+  const week = Math.ceil(((start - yearStart) / 86400000 + 1) / 7);
+  return `${start.getFullYear()}-W${String(week).padStart(2, "0")}`;
+}
+
 function formatDate(value) {
   return new Intl.DateTimeFormat("es-MX", {
     dateStyle: "medium",
     timeStyle: "short",
   }).format(new Date(value));
+}
+
+function countBy(items, getLabel) {
+  return items.reduce((counts, item) => {
+    const label = getLabel(item);
+    if (!label) return counts;
+    counts[label] = (counts[label] || 0) + 1;
+    return counts;
+  }, {});
+}
+
+function sortedCounts(counts) {
+  return Object.entries(counts).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "es"));
+}
+
+function renderPatternList(container, counts, emptyText) {
+  if (!container) return;
+  const entries = sortedCounts(counts).slice(0, 5);
+  if (!entries.length) {
+    container.innerHTML = `<p class="empty-state compact-empty">${escapeHtml(emptyText)}</p>`;
+    return;
+  }
+
+  const max = Math.max(...entries.map(([, count]) => count), 1);
+  container.innerHTML = entries
+    .map(
+      ([label, count]) => `
+        <div class="pattern-row">
+          <div class="pattern-meta">
+            <strong>${escapeHtml(label)}</strong>
+            <span>${count} ${count === 1 ? "vez" : "veces"}</span>
+          </div>
+          <div class="pattern-track" aria-hidden="true">
+            <span style="width: ${Math.max(18, (count / max) * 100)}%"></span>
+          </div>
+        </div>
+      `,
+    )
+    .join("");
 }
 
 function scoreTopic(query, topic) {
@@ -1708,6 +1988,10 @@ function setActiveView(viewName, shouldScroll = false) {
   });
   if (viewName === "diario") renderJournal();
   if (viewName === "versiculos") renderSavedVerses();
+  if (viewName === "cartas") renderLetters();
+  if (viewName === "orar") renderGuidedPrayers();
+  if (viewName === "promesas") renderPromises();
+  if (viewName === "intercesion") renderIntercessions();
   if (shouldScroll) {
     window.setTimeout(() => {
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -1733,10 +2017,12 @@ function saveJournalEntry(query, generated) {
   journal = [...journal, entry].slice(-100);
   writeLocal(storageKeys.journal, journal);
   renderJournal();
+  renderSpiritualHistory();
 }
 
 function renderJournal() {
   const ordered = [...journal].sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+  renderSpiritualHistory();
   if (!ordered.length) {
     journalList.innerHTML = `<p class="empty-state">Todavía no hay entradas. Cuando escribas y lleves algo a Dios, aparecerá aquí.</p>`;
     return;
@@ -1777,6 +2063,7 @@ function deleteJournalEntry(id) {
   journal = journal.filter((entry) => entry.id !== id);
   writeLocal(storageKeys.journal, journal);
   renderJournal();
+  renderSpiritualHistory();
 }
 
 function updateHabitAfterWriting() {
@@ -1815,12 +2102,14 @@ function toggleFavorite(verse) {
   writeLocal(storageKeys.favorites, favorites);
   renderTopic(currentTopic, currentVariant?.query || input.value, currentVariant);
   renderSavedVerses();
+  renderSpiritualHistory();
 }
 
 function renderSavedVerses() {
   if (!savedVersesList) return;
   if (!favorites.length) {
     savedVersesList.innerHTML = `<p class="empty-state">Todavía no has guardado versículos.</p>`;
+    renderSpiritualHistory();
     return;
   }
 
@@ -1839,6 +2128,348 @@ function renderSavedVerses() {
       `,
     )
     .join("");
+  renderSpiritualHistory();
+}
+
+function renderSpiritualHistory() {
+  const journalCounts = countBy(journal, (entry) => entry.response?.topic);
+  const favoriteCounts = countBy(favorites, (verse) => verse.topic || "Versículos guardados");
+  renderPatternList(journalPatterns, journalCounts, "Todavía no hay suficientes entradas para ver patrones.");
+  renderPatternList(favoritePatterns, favoriteCounts, "Guarda versículos para descubrir qué promesas vuelves a buscar.");
+
+  const topJournal = sortedCounts(journalCounts)[0];
+  const topFavorite = sortedCounts(favoriteCounts)[0];
+  if (spiritualHistoryNote) {
+    if (topJournal && topFavorite) {
+      spiritualHistoryNote.textContent = `Has escrito mucho sobre ${topJournal[0].toLowerCase()} y estás guardando promesas de ${topFavorite[0].toLowerCase()}. Mira cómo Dios te ha acompañado en todo esto.`;
+    } else if (topJournal) {
+      spiritualHistoryNote.textContent = `Has escrito mucho sobre ${topJournal[0].toLowerCase()}. Mira cómo Dios te ha acompañado en todo esto.`;
+    } else if (topFavorite) {
+      spiritualHistoryNote.textContent = `Has guardado varios versículos sobre ${topFavorite[0].toLowerCase()}. Mira cómo Dios te ha acompañado en todo esto.`;
+    } else {
+      spiritualHistoryNote.textContent = "Mira cómo Dios te ha acompañado en todo esto.";
+    }
+  }
+}
+
+function getMemoryWeekIndex() {
+  return weekKey()
+    .split("")
+    .reduce((sum, char) => sum + char.charCodeAt(0), 0) % memoryVerses.length;
+}
+
+function syncMemoryWeek() {
+  const currentWeek = weekKey();
+  if (memory.weekKey === currentWeek) return;
+  memory = { weekKey: currentWeek, memorizing: false, remembered: false, reveal: false };
+  writeLocal(storageKeys.memory, memory);
+}
+
+function renderMemoryVerse() {
+  if (!memoryReference || !memoryText || !memoryToggle || !memoryReveal || !memoryStatus) return;
+  syncMemoryWeek();
+  const verse = memoryVerses[getMemoryWeekIndex()] || memoryVerses[0];
+  const day = new Date().getDay();
+  const recallMode = memory.memorizing && day >= 5;
+
+  memoryReveal.hidden = !recallMode;
+  if (recallMode && !memory.reveal) {
+    memoryReference.textContent = "¿Lo recuerdas?";
+    memoryText.textContent = "Intenta decir el versículo antes de mostrarlo. Respira, recuerda la referencia y vuelve a intentarlo.";
+    memoryToggle.textContent = memory.remembered ? "Recordado esta semana" : "Lo recordé";
+    memoryStatus.textContent = memory.remembered
+      ? "Quedó marcado como recordado en este dispositivo."
+      : "Al final de la semana puedes probar si ya vive en tu memoria.";
+    memoryReveal.textContent = "Mostrar versículo";
+    return;
+  }
+
+  memoryReference.textContent = verse.reference;
+  memoryText.textContent = `“${verse.text}”`;
+  memoryToggle.textContent = memory.memorizing ? "Memorizando" : "Lo estoy memorizando";
+  memoryReveal.textContent = memory.reveal ? "Ocultar versículo" : "Mostrar versículo";
+  memoryStatus.textContent = memory.memorizing
+    ? "Este versículo quedó marcado para memorizar esta semana."
+    : "Una frase bíblica para llevar en el corazón durante la semana.";
+}
+
+function toggleMemoryProgress() {
+  syncMemoryWeek();
+  const recallMode = memory.memorizing && new Date().getDay() >= 5;
+  memory = recallMode ? { ...memory, remembered: true } : { ...memory, memorizing: !memory.memorizing };
+  writeLocal(storageKeys.memory, memory);
+  renderMemoryVerse();
+}
+
+function toggleMemoryReveal() {
+  syncMemoryWeek();
+  memory = { ...memory, reveal: !memory.reveal };
+  writeLocal(storageKeys.memory, memory);
+  renderMemoryVerse();
+}
+
+function renderLetters() {
+  if (!lettersList) return;
+  const ordered = [...letters].sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+  if (!ordered.length) {
+    lettersList.innerHTML = `<p class="empty-state">Todavía no has guardado cartas. Este espacio puede quedarse en silencio hasta que lo necesites.</p>`;
+    return;
+  }
+
+  lettersList.innerHTML = ordered
+    .map(
+      (letter) => `
+        <article class="journal-entry letter-entry">
+          <div class="entry-head">
+            <div>
+              <span class="entry-date">${escapeHtml(formatDate(letter.createdAt))}</span>
+              <h3>Carta para Dios</h3>
+            </div>
+            <button class="entry-button" type="button" data-letter-id="${escapeHtml(letter.id)}">Eliminar</button>
+          </div>
+          <p class="entry-query letter-body">${escapeHtml(letter.text)}</p>
+        </article>
+      `,
+    )
+    .join("");
+}
+
+function saveLetter() {
+  const text = letterInput.value.trim();
+  if (!text) {
+    showToast("Escribe tu carta antes de guardarla.");
+    letterInput.focus();
+    return;
+  }
+  letters = [
+    ...letters,
+    {
+      id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+      createdAt: new Date().toISOString(),
+      text,
+    },
+  ].slice(-100);
+  writeLocal(storageKeys.letters, letters);
+  letterInput.value = "";
+  renderLetters();
+  showToast("Carta guardada solo en este dispositivo.");
+}
+
+function deleteLetter(id) {
+  letters = letters.filter((letter) => letter.id !== id);
+  writeLocal(storageKeys.letters, letters);
+  renderLetters();
+}
+
+function currentGuidedPrayer() {
+  return guidedPrayers.find((item) => item.id === selectedGuidedPrayerId) || guidedPrayers[0];
+}
+
+function renderGuidedPrayers() {
+  if (!prayerSituationGrid || !guidedPrayerTitle || !guidedPrayerText || !savedPrayersList) return;
+  const selected = currentGuidedPrayer();
+  prayerSituationGrid.innerHTML = guidedPrayers
+    .map(
+      (item) => `
+        <button class="situation-button ${item.id === selected.id ? "is-active" : ""}" type="button" data-prayer-situation="${escapeHtml(item.id)}">
+          ${escapeHtml(item.label)}
+        </button>
+      `,
+    )
+    .join("");
+  guidedPrayerTitle.textContent = selected.label;
+  guidedPrayerText.textContent = selected.prayer;
+  renderSavedPrayers();
+}
+
+function renderSavedPrayers() {
+  if (!savedPrayersList) return;
+  if (!prayerFavorites.length) {
+    savedPrayersList.innerHTML = `<p class="empty-state">Todavía no hay oraciones guardadas.</p>`;
+    return;
+  }
+
+  savedPrayersList.innerHTML = prayerFavorites
+    .map(
+      (item, index) => `
+        <article class="saved-card prayer-favorite-card">
+          <span class="example-ref">${escapeHtml(item.label)}</span>
+          <p class="saved-text">“${escapeHtml(item.prayer)}”</p>
+          <div class="verse-actions">
+            <button class="verse-button primary" type="button" data-prayer-index="${index}" data-action="copy-prayer">Copiar</button>
+            <button class="verse-button secondary" type="button" data-prayer-index="${index}" data-action="remove-prayer">Eliminar</button>
+          </div>
+        </article>
+      `,
+    )
+    .join("");
+}
+
+async function copyText(text, target, successMessage) {
+  try {
+    await navigator.clipboard.writeText(text);
+    if (target) target.textContent = successMessage;
+  } catch {
+    if (target) target.textContent = "No se pudo copiar automáticamente en este navegador.";
+  }
+  window.setTimeout(() => {
+    if (target) target.textContent = "";
+  }, 2800);
+}
+
+function saveCurrentGuidedPrayer() {
+  const selected = currentGuidedPrayer();
+  const exists = prayerFavorites.some((item) => item.id === selected.id);
+  if (!exists) {
+    prayerFavorites = [{ ...selected, savedAt: new Date().toISOString() }, ...prayerFavorites];
+    writeLocal(storageKeys.prayerFavorites, prayerFavorites);
+    renderSavedPrayers();
+  }
+  if (guidedPrayerStatus) guidedPrayerStatus.textContent = exists ? "Esta oración ya estaba guardada." : "Oración guardada.";
+  window.setTimeout(() => {
+    if (guidedPrayerStatus) guidedPrayerStatus.textContent = "";
+  }, 2600);
+}
+
+function allPromises() {
+  return promiseThemes.flatMap((theme) => theme.promises.map((promise) => ({ ...promise, theme: theme.label, themeId: theme.id })));
+}
+
+function renderPromises() {
+  if (!promiseFilters || !promisesGrid) return;
+  const filters = [{ id: "todos", label: "Todos" }, ...promiseThemes.map(({ id, label }) => ({ id, label }))];
+  promiseFilters.innerHTML = filters
+    .map(
+      (filter) => `
+        <button class="situation-button ${filter.id === selectedPromiseThemeId ? "is-active" : ""}" type="button" data-promise-filter="${escapeHtml(filter.id)}">
+          ${escapeHtml(filter.label)}
+        </button>
+      `,
+    )
+    .join("");
+
+  const promises = selectedPromiseThemeId === "todos"
+    ? allPromises()
+    : allPromises().filter((promise) => promise.themeId === selectedPromiseThemeId);
+
+  promisesGrid.innerHTML = promises
+    .map(
+      (promise, index) => `
+        <article class="promise-card">
+          <span class="example-ref">${escapeHtml(promise.theme)}</span>
+          <strong>${escapeHtml(promise.reference)}</strong>
+          <p class="promise-text">“${escapeHtml(promise.text)}”</p>
+          <p>${escapeHtml(promise.context)}</p>
+          <button class="verse-button primary" type="button" data-promise-index="${index}">Guardar en Mis Versículos</button>
+        </article>
+      `,
+    )
+    .join("");
+}
+
+function savePromiseByIndex(index) {
+  const promises = selectedPromiseThemeId === "todos"
+    ? allPromises()
+    : allPromises().filter((promise) => promise.themeId === selectedPromiseThemeId);
+  const promise = promises[index];
+  if (!promise) return;
+  const verse = {
+    reference: promise.reference,
+    text: promise.text,
+    action: promise.context,
+    topic: `Promesa: ${promise.theme}`,
+    savedAt: new Date().toISOString(),
+  };
+  const exists = favorites.some((item) => verseId(item) === verseId(verse));
+  if (!exists) {
+    favorites = [verse, ...favorites];
+    writeLocal(storageKeys.favorites, favorites);
+    renderSavedVerses();
+    renderPromises();
+  }
+  showToast(exists ? "Esa promesa ya estaba guardada." : "Promesa guardada en Mis Versículos.");
+}
+
+function buildIntercessionPrayer(text) {
+  const topic = findBestTopic(text);
+  const focus = text.length > 64 ? "esta situación" : text;
+  const lines = {
+    ansiedad: "trae paz donde hay inquietud y enseña a confiar en tu cuidado",
+    tristeza: "consuela el corazón y muestra tu cercanía en medio del dolor",
+    miedo: "da valentía, protección y una fe más grande que el temor",
+    culpa: "guía hacia confesión, perdón y una vida renovada",
+    soledad: "haz sentir tu compañía y abre caminos de comunidad sana",
+    cansancio: "renueva fuerzas, ordena cargas y da descanso verdadero",
+    direccion: "da sabiduría, claridad y obediencia para el siguiente paso",
+    enojo: "forma dominio propio, verdad y reconciliación",
+    perdonar: "sana heridas y enseña a soltar la venganza con límites sabios",
+    tentacion: "muestra una salida y fortalece el dominio propio",
+    gratitud: "convierte este motivo en alabanza y servicio humilde",
+    provision: "provee lo necesario y da responsabilidad, contentamiento y fe",
+  };
+  return `Señor, te presento ${focus}. Tú conoces lo que nadie más alcanza a ver; ${lines[topic.id] || lines.direccion}. Que tu voluntad sea hecha con amor, verdad y misericordia. Amén.`;
+}
+
+function renderIntercessions() {
+  if (!intercessionList) return;
+  if (!intercessions.length) {
+    intercessionList.innerHTML = `<p class="empty-state">Todavía no hay personas o situaciones en tu lista de intercesión.</p>`;
+    return;
+  }
+
+  intercessionList.innerHTML = intercessions
+    .map((item) => {
+      const prayedToday = item.prayedDate === todayKey();
+      return `
+        <article class="journal-entry intercession-entry">
+          <div class="entry-head">
+            <div>
+              <span class="entry-date">${escapeHtml(formatDate(item.createdAt))}</span>
+              <h3>${escapeHtml(item.text)}</h3>
+            </div>
+            <button class="entry-button" type="button" data-intercession-id="${escapeHtml(item.id)}" data-action="remove-intercession">Eliminar</button>
+          </div>
+          ${item.prayer ? `<p class="entry-prayer">“${escapeHtml(item.prayer)}”</p>` : `<p class="muted-copy">Pide una oración cuando quieras tener palabras para interceder.</p>`}
+          <div class="verse-actions">
+            <button class="verse-button primary" type="button" data-intercession-id="${escapeHtml(item.id)}" data-action="generate-intercession">
+              ${item.prayer ? "Regenerar oración" : "Generar oración"}
+            </button>
+            <button class="verse-button secondary ${prayedToday ? "is-marked" : ""}" type="button" data-intercession-id="${escapeHtml(item.id)}" data-action="mark-prayed">
+              ${prayedToday ? "Orado hoy" : "Marcar orado hoy"}
+            </button>
+          </div>
+        </article>
+      `;
+    })
+    .join("");
+}
+
+function addIntercession() {
+  const text = intercessionInput.value.trim();
+  if (!text) {
+    showToast("Escribe un nombre o situación para agregar a tu lista.");
+    intercessionInput.focus();
+    return;
+  }
+  intercessions = [
+    {
+      id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+      createdAt: new Date().toISOString(),
+      text: text.slice(0, 180),
+      prayer: "",
+      prayedDate: "",
+    },
+    ...intercessions,
+  ].slice(0, 80);
+  writeLocal(storageKeys.intercession, intercessions);
+  intercessionInput.value = "";
+  renderIntercessions();
+}
+
+function updateIntercession(id, updater) {
+  intercessions = intercessions.map((item) => (item.id === id ? updater(item) : item));
+  writeLocal(storageKeys.intercession, intercessions);
+  renderIntercessions();
 }
 
 async function copyVerse(verse, target = copyStatus) {
@@ -2147,9 +2778,88 @@ savedVersesList.addEventListener("click", (event) => {
     favorites = favorites.filter((_, itemIndex) => itemIndex !== index);
     writeLocal(storageKeys.favorites, favorites);
     renderSavedVerses();
+    renderSpiritualHistory();
     if (currentVariant || !resultsArea?.classList.contains("is-hidden")) {
       renderTopic(currentTopic, currentVariant?.query || input.value, currentVariant);
     }
+  }
+});
+
+letterForm?.addEventListener("submit", (event) => {
+  event.preventDefault();
+  saveLetter();
+});
+
+lettersList?.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-letter-id]");
+  if (button) deleteLetter(button.dataset.letterId);
+});
+
+memoryToggle?.addEventListener("click", toggleMemoryProgress);
+memoryReveal?.addEventListener("click", toggleMemoryReveal);
+
+prayerSituationGrid?.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-prayer-situation]");
+  if (!button) return;
+  selectedGuidedPrayerId = button.dataset.prayerSituation;
+  renderGuidedPrayers();
+});
+
+copyGuidedPrayer?.addEventListener("click", () => {
+  const prayer = currentGuidedPrayer();
+  copyText(`${prayer.label}\n${prayer.prayer}\n\nA Solas con Dios — Brújula Bíblica`, guidedPrayerStatus, "Oración copiada.");
+});
+
+saveGuidedPrayer?.addEventListener("click", saveCurrentGuidedPrayer);
+
+savedPrayersList?.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-action]");
+  if (!button) return;
+  const index = Number(button.dataset.prayerIndex);
+  const prayer = prayerFavorites[index];
+  if (!prayer) return;
+  if (button.dataset.action === "copy-prayer") {
+    copyText(`${prayer.label}\n${prayer.prayer}\n\nA Solas con Dios — Brújula Bíblica`, guidedPrayerStatus, "Oración copiada.");
+  }
+  if (button.dataset.action === "remove-prayer") {
+    prayerFavorites = prayerFavorites.filter((_, itemIndex) => itemIndex !== index);
+    writeLocal(storageKeys.prayerFavorites, prayerFavorites);
+    renderSavedPrayers();
+  }
+});
+
+promiseFilters?.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-promise-filter]");
+  if (!button) return;
+  selectedPromiseThemeId = button.dataset.promiseFilter;
+  renderPromises();
+});
+
+promisesGrid?.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-promise-index]");
+  if (!button) return;
+  savePromiseByIndex(Number(button.dataset.promiseIndex));
+});
+
+intercessionForm?.addEventListener("submit", (event) => {
+  event.preventDefault();
+  addIntercession();
+});
+
+intercessionList?.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-intercession-id]");
+  if (!button) return;
+  const id = button.dataset.intercessionId;
+  if (button.dataset.action === "remove-intercession") {
+    intercessions = intercessions.filter((item) => item.id !== id);
+    writeLocal(storageKeys.intercession, intercessions);
+    renderIntercessions();
+  }
+  if (button.dataset.action === "generate-intercession") {
+    updateIntercession(id, (item) => ({ ...item, prayer: buildIntercessionPrayer(item.text) }));
+  }
+  if (button.dataset.action === "mark-prayed") {
+    updateIntercession(id, (item) => ({ ...item, prayedDate: todayKey() }));
   }
 });
 
@@ -2193,8 +2903,13 @@ reminderToggle.addEventListener("click", async () => {
 applyTheme(readLocal(storageKeys.theme, "light"));
 renderHabit();
 renderProfile();
+renderMemoryVerse();
 renderJournal();
 renderSavedVerses();
+renderLetters();
+renderGuidedPrayers();
+renderPromises();
+renderIntercessions();
 renderReminder();
 scheduleReminder();
 loadDailyVerse();
