@@ -32,6 +32,10 @@
           <button class="nav-tab" type="button" data-view-target="escribir">Escribir</button>
           <button class="nav-tab" type="button" data-view-target="diario">Mi Diario</button>
           <button class="nav-tab" type="button" data-view-target="versiculos">Mis Versículos</button>
+          <button class="nav-tab" type="button" data-view-target="cartas">Cartas</button>
+          <button class="nav-tab" type="button" data-view-target="orar">Orar</button>
+          <button class="nav-tab" type="button" data-view-target="promesas">Promesas</button>
+          <button class="nav-tab" type="button" data-view-target="intercesion">Interceder</button>
         </nav>
 
         <div class="header-actions">
@@ -99,6 +103,17 @@
                   <strong id="dailyReference">Cargando...</strong>
                   <p class="daily-text" id="dailyText">Buscando un versículo para hoy.</p>
                   <span id="dailyTranslation">Reina-Valera 1909</span>
+                </article>
+
+                <article class="widget-card memory-widget reveal">
+                  <p class="eyebrow">Versículo para memorizar</p>
+                  <strong id="memoryReference">Cargando...</strong>
+                  <p class="daily-text memory-text" id="memoryText">Preparando una promesa para esta semana.</p>
+                  <div class="memory-actions">
+                    <button class="primary-small" id="memoryToggle" type="button">Lo estoy memorizando</button>
+                    <button class="entry-button" id="memoryReveal" type="button" hidden>Mostrar versículo</button>
+                  </div>
+                  <p class="muted-copy" id="memoryStatus">Una frase bíblica para llevar en el corazón durante la semana.</p>
                 </article>
 
                 <article class="widget-card reveal">
@@ -255,6 +270,24 @@
             <p class="privacy-note compact">
               Tu diario vive solo en este dispositivo. Nunca se sube a ningún servidor.
             </p>
+            <section class="spiritual-history reveal" aria-label="Historial espiritual privado">
+              <div class="history-copy">
+                <p class="eyebrow">Historial espiritual</p>
+                <h3>Patrones privados de lo que has llevado a Dios</h3>
+                <p>Todo se calcula aquí mismo, en tu dispositivo, con tu diario y tus versículos guardados.</p>
+              </div>
+              <div class="history-grid">
+                <article class="history-panel">
+                  <h4>Lo que más has escrito</h4>
+                  <div class="pattern-list" id="journalPatterns"></div>
+                </article>
+                <article class="history-panel">
+                  <h4>Lo que más estás guardando</h4>
+                  <div class="pattern-list" id="favoritePatterns"></div>
+                </article>
+              </div>
+              <p class="history-note" id="spiritualHistoryNote">Mira cómo Dios te ha acompañado en todo esto.</p>
+            </section>
             <div class="section-visual journal-visual compact-visual reveal" aria-label="Imagen del diario espiritual">
               <div class="section-visual-copy">
                 <p class="eyebrow">Memoria con Dios</p>
@@ -280,6 +313,92 @@
               </div>
             </div>
             <div class="saved-grid" id="savedVersesList"></div>
+          </div>
+        </section>
+
+        <section class="app-view panel-view letters-view" id="cartasView" data-view="cartas">
+          <div class="panel-media panel-media-letters" aria-hidden="true"></div>
+          <div class="panel-overlay" aria-hidden="true"></div>
+          <div class="section-shell">
+            <p class="eyebrow">Cartas para Dios</p>
+            <h2>Un espacio solo entre tú y Dios</h2>
+            <p class="privacy-note compact">
+              Aquí no hay análisis ni respuesta generada. Solo escribes, guardas y vuelves cuando quieras.
+            </p>
+
+            <form class="letters-form reveal" id="letterForm">
+              <label for="letterInput">Escribe tu carta</label>
+              <textarea id="letterInput" rows="9" placeholder="Dios, hoy quiero decirte..."></textarea>
+              <button class="primary-cta" type="submit">Guardar carta</button>
+            </form>
+
+            <div class="entry-list letters-list" id="lettersList"></div>
+          </div>
+        </section>
+
+        <section class="app-view panel-view prayer-guide-view" id="orarView" data-view="orar">
+          <div class="panel-media panel-media-prayer" aria-hidden="true"></div>
+          <div class="panel-overlay" aria-hidden="true"></div>
+          <div class="section-shell">
+            <p class="eyebrow">Cuando no sé qué orar</p>
+            <h2>Oraciones para cuando faltan palabras</h2>
+            <p class="muted-copy">Elige una situación y recibe una oración corta para empezar. Puedes copiarla o guardarla aquí mismo.</p>
+
+            <div class="guided-prayer-layout">
+              <div class="situation-grid" id="prayerSituationGrid" aria-label="Situaciones de oración"></div>
+
+              <article class="guided-prayer-card">
+                <p class="eyebrow">Oración para</p>
+                <h3 id="guidedPrayerTitle">Miedo</h3>
+                <p id="guidedPrayerText"></p>
+                <div class="verse-actions">
+                  <button class="verse-button primary" id="copyGuidedPrayer" type="button">Copiar oración</button>
+                  <button class="verse-button secondary" id="saveGuidedPrayer" type="button">Guardar oración</button>
+                </div>
+                <p class="copy-status" id="guidedPrayerStatus" role="status" aria-live="polite"></p>
+              </article>
+            </div>
+
+            <section class="saved-prayers-section">
+              <div class="section-minihead">
+                <p class="eyebrow">Favoritos locales</p>
+                <h3>Oraciones guardadas</h3>
+              </div>
+              <div class="saved-grid" id="savedPrayersList"></div>
+            </section>
+          </div>
+        </section>
+
+        <section class="app-view panel-view promises-view" id="promesasView" data-view="promesas">
+          <div class="panel-media panel-media-promises" aria-hidden="true"></div>
+          <div class="panel-overlay" aria-hidden="true"></div>
+          <div class="section-shell">
+            <p class="eyebrow">Muro de promesas bíblicas</p>
+            <h2>Promesas para explorar sin escribir nada</h2>
+            <p class="muted-copy">Elige un tema, lee con calma y guarda en “Mis Versículos” lo que quieras recordar.</p>
+
+            <div class="promise-filters" id="promiseFilters" aria-label="Temas de promesas"></div>
+            <div class="promise-grid" id="promisesGrid"></div>
+          </div>
+        </section>
+
+        <section class="app-view panel-view intercession-view" id="intercesionView" data-view="intercesion">
+          <div class="panel-media panel-media-intercession" aria-hidden="true"></div>
+          <div class="panel-overlay" aria-hidden="true"></div>
+          <div class="section-shell">
+            <p class="eyebrow">Modo intercesión</p>
+            <h2>Personas y situaciones por quienes orar</h2>
+            <p class="privacy-note compact">
+              Tu lista de intercesión vive solo en este dispositivo. Las oraciones se generan localmente para cuidar tu privacidad.
+            </p>
+
+            <form class="intercession-form reveal" id="intercessionForm">
+              <label for="intercessionInput">Nombre o situación</label>
+              <textarea id="intercessionInput" rows="3" placeholder="Ej. mi familia, una decisión importante, alguien enfermo..."></textarea>
+              <button class="primary-cta" type="submit">Agregar a mi lista</button>
+            </form>
+
+            <div class="entry-list intercession-list" id="intercessionList"></div>
           </div>
         </section>
       </main>
