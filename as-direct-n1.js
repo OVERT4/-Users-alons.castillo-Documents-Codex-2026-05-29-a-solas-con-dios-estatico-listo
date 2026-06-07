@@ -217,8 +217,7 @@ function installBackupCenter(){
   panel.appendChild(buildBackupCard());
  }
  const homeWidgets=$(".home-widgets");
- const profileCard=$(".featured-profile");
- if(homeWidgets&&profileCard&&!$("#backupMiniCard")){
+ if(homeWidgets&&!$("#backupMiniCard")){
   const mini=document.createElement("article");
   mini.className="widget-card backup-mini-card reveal";
   mini.id="backupMiniCard";
@@ -228,7 +227,9 @@ function installBackupCenter(){
    <p class="muted-copy">Exporta o restaura tu diario y versículos entre dispositivos, sin crear cuenta ni subir tus textos a la app.</p>
    <div class="backup-mini-actions"><button class="primary-small" id="openBackupCenter" type="button">Copias privadas</button></div>
   `;
-  profileCard.insertAdjacentElement("afterend",mini);
+  const profileInHome=homeWidgets.querySelector(".featured-profile");
+  if(profileInHome)profileInHome.insertAdjacentElement("afterend",mini);
+  else homeWidgets.insertBefore(mini,homeWidgets.firstElementChild||null);
   $("#openBackupCenter")?.addEventListener("click",openLoginModal);
  }
  wireBackupActions();
